@@ -27,3 +27,10 @@ def step(action: Action):
 @app.get("/state")
 def state():
     return env.state().dict()
+
+@app.get("/")
+def root():
+    return {
+        "message": "Social Comment Environment API is running 🚀",
+        "endpoints": ["/reset", "/step", "/state", "/docs"]
+    }
