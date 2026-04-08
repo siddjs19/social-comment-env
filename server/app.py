@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import uvicorn
 from env.environment import SocialCommentEnv
 from env.models import Action
 
@@ -9,8 +10,10 @@ env = SocialCommentEnv()
 
 @app.post("/reset")
 def reset():
-    obs=env.reset()
-    return obs
+    obs = env.reset()
+    return {
+        "observation": obs.dict()
+    }
 
 
 @app.post("/step")
@@ -28,6 +31,7 @@ def step(action: Action):
 def state():
     return env.state().dict()
 
+
 @app.get("/")
 def root():
     return {
@@ -36,10 +40,6 @@ def root():
     }
 
 
-
-# -------------------------
-# REQUIRED FOR OPENENV
-# -------------------------
 def main():
     uvicorn.run(app, host="0.0.0.0", port=7860)
 
