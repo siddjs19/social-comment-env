@@ -34,3 +34,15 @@ def root():
         "message": "Social Comment Environment API is running 🚀",
         "endpoints": ["/reset", "/step", "/state", "/docs"]
     }
+
+
+
+# -------------------------
+# REQUIRED FOR OPENENV
+# -------------------------
+def main():
+    uvicorn.run(app, host="0.0.0.0", port=7860)
+
+
+if __name__ == "__main__":
+    main()
