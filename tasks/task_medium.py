@@ -5,6 +5,7 @@ class MediumTask:
 
     def run(self, agent):
         env = SocialCommentEnv()
+        env.simulator.current_scenario = 1
         obs = env.reset()
 
         escalation_penalty = 0

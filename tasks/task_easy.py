@@ -6,6 +6,7 @@ class EasyTask:
 
     def run(self, agent):
         env = SocialCommentEnv()
+        env.simulator.current_scenario = 0
         obs = env.reset()
 
         total_reward = 0

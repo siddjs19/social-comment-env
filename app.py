@@ -7,7 +7,7 @@ app = FastAPI()
 env = SocialCommentEnv()
 
 
-@app.get("/reset")
+@app.post("/reset")
 def reset():
     obs = env.reset()
     return obs.dict()

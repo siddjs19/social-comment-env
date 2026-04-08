@@ -5,6 +5,7 @@ class HardTask:
 
     def run(self, agent):
         env = SocialCommentEnv()
+        env.simulator.current_scenario = 2
         obs = env.reset()
 
         total_reward = 0

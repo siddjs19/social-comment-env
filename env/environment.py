@@ -3,6 +3,9 @@ from env.models import Observation, Action, Reward, State
 from env.reward import RewardEngine
 from env.simulator import ThreadSimulator
 
+RANDOM_SEED = 42
+random.seed(RANDOM_SEED)
+
 class SocialCommentEnv:
 
     def __init__(self):
