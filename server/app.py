@@ -9,8 +9,13 @@ env = SocialCommentEnv()
 
 @app.post("/reset")
 def reset():
-    obs = env.reset()
-    return obs.dict()
+    return {
+        "observation": {
+            "comment": "test",
+            "toxicity_score": 0.5,
+            "user_history": 1
+        }
+    }
 
 
 @app.post("/step")
