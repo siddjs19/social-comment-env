@@ -11,7 +11,10 @@ env = SocialCommentEnv()
 
 @app.post("/reset")
 async def reset(request: Request):
-    body = await request.json()
+    try:
+        body = await request.json()
+    except:
+        body = {}
     task = body.get("task", {})
 
     scenario = 0
