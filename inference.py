@@ -2,9 +2,9 @@ import os
 import requests
 from openai import OpenAI
 
-API_BASE = os.environ["API_BASE_URL"]
-API_KEY = os.environ["API_KEY"]
-MODEL_NAME = os.environ["MODEL_NAME"]
+API_BASE = os.environ.get("API_BASE_URL")
+API_KEY = os.environ.get("API_KEY")
+MODEL_NAME = os.environ.get("MODEL_NAME", "gpt-3.5-turbo")
 
 ENV_URL = os.environ.get("ENV_BASE_URL", "https://warriorsid-social-comment-env.hf.space")
 
