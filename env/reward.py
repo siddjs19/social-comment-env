@@ -3,6 +3,8 @@ from env.models import Reward
 class RewardEngine:
 
     def compute(self, comment, action, state):
+        if comment is None:
+            return Reward(score=0.5)
         tox = comment.get("toxicity", 0.0)
 
         if action.action_type == "delete":

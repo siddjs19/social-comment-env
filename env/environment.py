@@ -70,6 +70,10 @@ class SocialCommentEnv:
         return random.choice(samples)
 
     def _compute_reward(self, action: Action):
+        if self.current_comment is None:
+            from env.models import Reward
+            return Reward(score=0.5)  # safe default
+
         return self.reward_engine.compute(
             self.current_comment,
             action,

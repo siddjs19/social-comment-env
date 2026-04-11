@@ -48,6 +48,14 @@ class ThreadSimulator:
             # stable fallback
             next_comment = self._format_comment(scenario[-1])
 
+        if next_comment is None:
+            next_comment = {
+                "text": "default comment",
+                "toxicity": 0.2,
+                "topic": "general",
+                "user": {"flags": 0}
+            }
+
         self.thread.append(next_comment)
 
         return next_comment
