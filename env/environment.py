@@ -14,7 +14,9 @@ class SocialCommentEnv:
         self.reward_engine = RewardEngine()
         self.simulator = ThreadSimulator()
 
-    def reset(self):
+    def reset(self, scenario=0):
+        self.simulator.current_scenario = scenario
+
         self.state_data = State(
             comments_handled=0,
             toxicity_level=0.0,

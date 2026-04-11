@@ -2,6 +2,7 @@ from fastapi import FastAPI
 import uvicorn
 from env.environment import SocialCommentEnv
 from env.models import Action
+from fastapi import Request
 
 app = FastAPI()
 
@@ -9,8 +10,18 @@ env = SocialCommentEnv()
 
 
 @app.post("/reset")
-def reset():
-    obs = env.reset()
+async def reset(request: Request):
+    body = await request.json()
+    task = body.get("task", {})
+
+    scenario = 0
+    if task.get("name") == "medium":
+        scenario = 1
+    elif task.get("name") == "hard":
+        scenario = 2
+
+    obs = env.reset(scenario=scenario)
+
     return {
         "observation": obs.dict()
     }
