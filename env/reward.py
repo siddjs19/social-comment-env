@@ -4,7 +4,7 @@ class RewardEngine:
 
     def compute(self, comment, action, state):
         if comment is None:
-            return Reward(score=0.5)
+            return Reward(score=0.5, reason="default fallback")
         tox = comment.get("toxicity", 0.0)
 
         if action.action_type == "delete":
@@ -26,4 +26,4 @@ class RewardEngine:
         # 🔥 IMPORTANT (grader requirement)
         score = max(0.01, min(0.99, score))
 
-        return Reward(score=score)
+        return Reward(score=score, reason="based on moderation decision")
