@@ -77,11 +77,26 @@ class SocialCommentEnv:
         return random.choice(samples)
 
     def _compute_reward(self, action: Action):
-        if self.current_comment is None:
-            return Reward(score=0.5, reason="no comment fallback") # safe default
-
-        return self.reward_engine.compute(
+        reward = self.reward_engine.compute(
             self.current_comment,
             action,
             self.state_data
+        )
+
+        score = reward.score
+
+        # 🔥 TASK DIFFERENTIATION (CRITICAL)
+        if self.current_task == "easy":
+            score *= 0.8
+        elif self.current_task == "medium":
+            score *= 1.0
+        elif self.current_task == "hard":
+            score *= 1.2
+
+        # clamp
+        score = max(0.01, min(0.99, score))
+
+        return Reward(
+            score=score,
+            reason=f"{self.current_task} task adjusted"
         )
