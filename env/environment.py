@@ -13,8 +13,10 @@ class SocialCommentEnv:
         self.current_comment = None
         self.reward_engine = RewardEngine()
         self.simulator = ThreadSimulator()
+        self.current_task = "easy"
 
-    def reset(self, scenario=0):
+    def reset(self, scenario=0, task_name="easy"):
+        self.current_task = task_name
         self.simulator.current_scenario = scenario
 
         self.state_data = State(

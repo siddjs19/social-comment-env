@@ -15,15 +15,17 @@ async def reset(request: Request):
         body = await request.json()
     except:
         body = {}
+
     task = body.get("task", {})
+    task_name = task.get("name", "easy")
 
     scenario = 0
-    if task.get("name") == "medium":
+    if task_name == "medium":
         scenario = 1
-    elif task.get("name") == "hard":
+    elif task_name == "hard":
         scenario = 2
 
-    obs = env.reset(scenario=scenario)
+    obs = env.reset(scenario=scenario, task_name=task_name)
 
     return {
         "observation": obs.dict()
