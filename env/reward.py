@@ -3,7 +3,7 @@ from env.models import Reward, Action
 
 class RewardEngine:
 
-    def compute(self, action: Action):
+    def compute(self,comment,action: Action,state):
         base_reward = self.reward_engine.compute(
             self.current_comment,
             action,
