@@ -5,7 +5,7 @@ class RewardEngine:
 
     def compute(self,comment,action: Action,state):
         base_reward = self.compute(
-            self.current_comment,
+            comment,
             action,
             self.state_data
         ).score
