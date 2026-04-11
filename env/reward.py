@@ -1,29 +1,27 @@
-from env.models import Reward, Action
-
+from env.models import Reward
 
 class RewardEngine:
 
-    def compute(self,comment,action: Action,state):
-        base_reward = self.compute(
-            comment,
-            action,
-            self.state_data
-        ).score
+    def compute(self, comment, action, state):
+        tox = comment.get("toxicity", 0.0)
 
-        # 🔥 task-specific grading
-        if self.current_task == "easy":
-            score = base_reward * 0.8
+        if action.action_type == "delete":
+            score = 0.8 if tox > 0.7 else 0.2
 
-        elif self.current_task == "medium":
-            score = base_reward
+        elif action.action_type == "warn":
+            score = 0.6
 
-        elif self.current_task == "hard":
-            score = base_reward * 1.2
+        elif action.action_type == "respond":
+            score = 0.5
 
-        else:
-            score = base_reward
+        else:  # allow
+            score = 0.3
 
-        # 🔥 clamp
+        # Optional: use state
+        if state.step_count > 10:
+            score *= 0.9
+
+        # 🔥 IMPORTANT (grader requirement)
         score = max(0.01, min(0.99, score))
 
         return Reward(score=score)
