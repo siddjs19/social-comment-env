@@ -9,11 +9,11 @@ version: "1.0"
 entrypoint: app:app
 
 tasks:
-  - id: easy
+  - name: easy
     description: Basic toxicity moderation
-  - id: medium
+  - name: medium
     description: Context-aware moderation
-  - id: hard
+  - name: hard
     description: Multi-step conversation control
 
 observation_space:
