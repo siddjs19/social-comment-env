@@ -81,5 +81,5 @@ class RewardEngine:
         # 5. Small Step Penalty (avoid lazy agents)
         # -------------------------
         score -= 0.05
-
-        return Reward(score=round(score, 3), reason=", ".join(reasons))
+        score = max(0.01, min(0.99,score))
+        return Reward(score=score)

@@ -121,12 +121,12 @@ def run_episode():
 
         total_reward = sum(rewards)
 
-        score = min(max(total_reward / 20, 0.0), 1.0)
+        score = min(max(total_reward / 20, 0.01), 1.0)
         success = score > 0.3
 
     except Exception as e:
         log_step(steps_taken, "none", 0.0, True, str(e))
-        score = 0.0
+        score = 0.01
 
     finally:
         log_end(success, steps_taken, score, rewards)
