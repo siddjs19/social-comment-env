@@ -33,12 +33,19 @@ class SocialCommentEnv:
         return self._get_observation()
 
     def step(self, action: Action):
+
+        # 🔥 SAFETY: initialize if not reset
+        if self.state_data is None:
+            self.reset()
+
+        if self.current_comment is None:
+            self.current_comment = self.simulator.reset()
+
         reward = self._compute_reward(action)
 
         self.state_data.comments_handled += 1
         self.state_data.step_count += 1
 
-        # Generate next comment based on action
         self.current_comment = self.simulator.step(action.action_type)
 
         done = self.state_data.step_count >= 20
