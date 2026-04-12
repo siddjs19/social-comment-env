@@ -16,8 +16,16 @@ async def reset(request: Request):
     except:
         body = {}
 
-    task = body.get("task", {})
-    task_name = task.get("name", "easy")
+    task = body.get("task")
+
+    # 🔥 If evaluator sends task → use it
+    if task and "name" in task:
+        task_name = task["name"]
+
+    else:
+        # 🔥 fallback: rotate tasks
+        task_name = env.tasks[env.task_index]
+        env.task_index = (env.task_index + 1) % len(env.tasks)
 
     scenario = 0
     if task_name == "medium":
