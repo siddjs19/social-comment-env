@@ -133,4 +133,6 @@ def run_episode():
 
 
 if __name__ == "__main__":
-    run_episode()
+    run_episode("easy")
+    run_episode("medium")
+    run_episode("hard")
