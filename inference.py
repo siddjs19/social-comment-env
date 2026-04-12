@@ -62,8 +62,8 @@ Only output one word.
         return "allow"
 
 
-def log_start():
-    print(f"[START] task={TASK_NAME} env={BENCHMARK} model={MODEL_NAME}", flush=True)
+def log_start(task_name):
+    print(f"[START] task={task_name} env={BENCHMARK} model={MODEL_NAME}", flush=True)
 
 
 def log_step(step, action, reward, done, error):
@@ -84,21 +84,22 @@ def log_end(success, steps, score, rewards):
 
 
 
-def run_episode():
+def run_episode(task_name="easy"):
     rewards = []
     steps_taken = 0
     success = False
 
-    log_start()
+    log_start(task_name)
 
     try:
-        obs = requests.post(f"{ENV_URL}/reset", json={}).json()
+        obs = requests.post(
+            f"{ENV_URL}/reset",
+            json={"task": {"name": task_name}}
+        ).json()
 
         for step in range(1, 21):
-            if "observation" in obs:
-                current_obs = obs["observation"]
-            else:
-                current_obs = obs
+
+            current_obs = obs.get("observation", obs)
 
             action = get_action(current_obs)
 
@@ -120,7 +121,6 @@ def run_episode():
                 break
 
         total_reward = sum(rewards)
-
         score = min(max(total_reward / 20, 0.01), 1.0)
         success = score > 0.3
 
