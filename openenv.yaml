@@ -10,11 +10,16 @@ entrypoint: app:app
 
 tasks:
   - name: easy
-    description: Basic toxicity moderation
+    description: Basic moderation
+    evaluator: default
+
   - name: medium
-    description: Context-aware moderation
+    description: Context moderation
+    evaluator: default
+
   - name: hard
-    description: Multi-step conversation control
+    description: Complex moderation
+    evaluator: default
 
 observation_space:
   comment: string
