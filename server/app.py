@@ -36,7 +36,10 @@ async def reset(request: Request):
     obs = env.reset(scenario=scenario, task_name=task_name)
 
     return {
-        "observation": obs.dict()
+        "observation": obs.dict(),
+        "task": {
+            "name": task_name
+        }
     }
 
 
@@ -47,7 +50,9 @@ def step(action: Action):
         "observation": obs.dict(),
         "reward": reward.dict(),
         "done": done,
-        "info": info
+        "info": {
+            "task": env.current_task
+        }
     }
 
 
