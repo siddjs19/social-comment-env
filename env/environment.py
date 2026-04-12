@@ -7,7 +7,16 @@ RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
 
 class SocialCommentEnv:
-
+    TASKS = [
+        {"name": "easy"},
+        {"name": "medium"},
+        {"name": "hard"}
+    ]
+    def tasks(self):
+        return self.TASKS
+    
+    def get_task(self, name):
+        return {"name": name}
     def __init__(self):
         self.state_data = None
         self.current_comment = None
