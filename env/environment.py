@@ -77,26 +77,31 @@ class SocialCommentEnv:
         return random.choice(samples)
 
     def _compute_reward(self, action: Action):
-        reward = self.reward_engine.compute(
+        base_reward = self.reward_engine.compute(
             self.current_comment,
             action,
             self.state_data
         )
 
-        score = reward.score
+        base = base_reward.score
 
-        # 🔥 TASK DIFFERENTIATION (CRITICAL)
+        # 🔥 STRONG SEPARATION (IMPORTANT)
         if self.current_task == "easy":
-            score *= 0.8
+            score = base * 0.3   # very low rewards
+
         elif self.current_task == "medium":
-            score *= 1.0
+            score = base * 0.6   # mid rewards
+
         elif self.current_task == "hard":
-            score *= 1.2
+            score = base * 0.9   # high rewards
+
+        else:
+            score = base
 
         # clamp
         score = max(0.01, min(0.99, score))
 
         return Reward(
             score=score,
-            reason=f"{self.current_task} task adjusted"
+            reason=f"{self.current_task} grading"
         )

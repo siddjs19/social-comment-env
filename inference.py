@@ -94,7 +94,7 @@ def run_episode():
     try:
         obs = requests.post(f"{ENV_URL}/reset", json={}).json()
 
-        for step in range(1, 25):
+        for step in range(1, 21):
             if "observation" in obs:
                 current_obs = obs["observation"]
             else:
