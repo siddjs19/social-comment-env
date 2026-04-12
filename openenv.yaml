@@ -1,37 +1,42 @@
-name: social-comment-env
-description: >
-  A simulation environment for AI agents to moderate and manage
-  social media comment threads with dynamic toxicity, engagement,
-  and user behavior.
-
-version: "1.0"
-
-entrypoint: app:app
-
 tasks:
   - name: easy
     description: Basic moderation
-    evaluator: default
+    action_space:
+      type: Discrete
+      size: 4
+      description: allow, warn, respond, delete
+    observation_space:
+      type: Box
+      shape: [5]
+      low: 0
+      high: 1
+      dtype: float32
+    task_description: Simple toxic comment moderation
 
   - name: medium
-    description: Context moderation
-    evaluator: default
+    description: Context-aware moderation
+    action_space:
+      type: Discrete
+      size: 4
+      description: allow, warn, respond, delete
+    observation_space:
+      type: Box
+      shape: [5]
+      low: 0
+      high: 1
+      dtype: float32
+    task_description: Moderation with user history
 
   - name: hard
     description: Complex moderation
-    evaluator: default
-
-observation_space:
-  comment: string
-  user_history: dict
-  post_topic: string
-  toxicity_score: float
-  step_count: int
-
-action_space:
-  action_type: string
-  response_text: string (optional)
-
-reward:
-  type: float
-  range: [-1.0, 1.0]
+    action_space:
+      type: Discrete
+      size: 4
+      description: allow, warn, respond, delete
+    observation_space:
+      type: Box
+      shape: [5]
+      low: 0
+      high: 1
+      dtype: float32
+    task_description: Multi-step conversation moderation
